@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{muck-friends}
-  s.version = "0.1.14"
+  s.version = "0.1.15"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Ball"]
-  s.date = %q{2009-10-29}
+  s.date = %q{2009-11-10}
   s.description = %q{Friend engine for the muck system.}
   s.email = %q{justinball@gmail.com}
   s.extra_rdoc_files = [
