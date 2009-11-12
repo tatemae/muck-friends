@@ -57,4 +57,4 @@ and a user model thus:
   end
 
 
-Copyright (c) 2009 Justin Ball, released under the MIT license
+Copyright (c) 2009 Tatemae, released under the MIT license
