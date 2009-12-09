@@ -114,7 +114,7 @@ class Muck::FriendsControllerTest < ActionController::TestCase
           Friend.add_follower(@quentin, @aaron)
           Friend.make_friends(@quentin, @aaron)
           @quentin.block_user(@aaron)
-          post :update, { :id => @aaron.to_param, :block => false, :format=>'js'}
+          post :update, { :id => @aaron.to_param, :unblock => true, :format=>'js' }
         end
         should_respond_with :success
         should_not_set_the_flash

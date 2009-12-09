@@ -29,3 +29,11 @@ require 'muck_users/tasks'
 require 'muck_activities/tasks'
 require 'muck_friends/tasks'
 require 'muck_profiles/tasks'
+
+namespace :muck do
+  
+  def muck_gems
+    ['muck-engine', 'muck-users', 'muck-profiles', 'muck-activities', 'muck-friends']
+  end
+  
+end

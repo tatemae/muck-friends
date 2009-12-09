@@ -17,8 +17,10 @@ Rails::Initializer.run do |config|
   config.time_zone = 'UTC'
   config.gem "will_paginate"
   config.gem "authlogic"
+  config.gem "geokit"
+  config.gem "sanitize"
   config.gem "bcrypt-ruby", :lib => "bcrypt"
-  config.gem 'thoughtbot-paperclip', :lib => 'paperclip', :source => "http://gems.github.com"
+  config.gem 'paperclip'
   config.gem 'muck-engine', :lib => 'muck_engine'
   config.gem 'muck-users', :lib => 'muck_users'
   config.gem 'muck-profiles', :lib => 'muck_profiles'

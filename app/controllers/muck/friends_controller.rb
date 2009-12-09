@@ -45,9 +45,9 @@ class Muck::FriendsController < ApplicationController
     end
     
     if success
-      if params[:block] == true
+      if params[:block]
         message = t('muck.friends.blocked', :user => @target.display_name)
-      elsif params[:block] == false
+      elsif params[:unblock]
         message = t('muck.friends.unblocked', :user => @target.display_name)
       end
     else
