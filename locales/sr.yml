@@ -8,7 +8,7 @@ sr:
       acccept_friend_request: "Прихвати захтев за пријатељство од {{user}}"
       accept: (прихвате)
       block: "Блокирај {{user}}"
-      block_problem: "Постоји Блокирање је грешка {{user}}"
+      block_problem: "Дошло је до грешке блокира {{user}}"
       blocked: "Блокирани {{user}}"
       delete: (брисање)
       follow_activity: "{{inviter}} Је сада следеће {{invited}}"

@@ -12,9 +12,9 @@ module MuckFriends
     def define
       
       namespace :muck do
-        namespace :friends do
+        namespace :sync do
           desc "Sync files from muck friends."
-          task :sync do
+          task :friends do
             path = File.join(File.dirname(__FILE__), *%w[.. ..])
             system "rsync -ruv #{path}/db ."
           end
