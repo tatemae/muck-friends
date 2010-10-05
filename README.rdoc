@@ -37,23 +37,23 @@ Inside of global_config.yml add the following, changing the emails to match your
     
 == Usage
 
-You will need a friend model that 'acts_as_muck_friend' and a user model that 'acts_as_muck_friend_user'
+You will need a friend model that 'include MuckFriends::Models::Friend' and a user model that 'include MuckFriends::Models::User'
 
 == Example
 After installing the gem just create a friend model thus:
 
   class Friend < ActiveRecord::Base  
-    acts_as_muck_friend
-    has_activities  # requires the muck-activities gem
+    include MuckFriends::Models::Friend
+    include MuckActivities::Models::ActivityConsumer  # requires the muck-activities gem
   end
 
 and a user model thus:
 
   class User < ActiveRecord::Base
-    acts_as_muck_user
-    acts_as_muck_friend_user
-    has_muck_profile
-    has_activities # requires the muck-activities gem
+    include MuckUsers::Models::User
+    include MuckFriends::Models::User
+    include MuckProfiles::Models::User
+    include MuckActivities::Models::ActivityConsumer # requires the muck-activities gem
   end
 
 

@@ -66,9 +66,9 @@ module MuckFriendsHelper
     render_friends(users, partial, no_friends_content)
   end
 
-  # Render a list of all friend requests (if !GlobalConfig.enable_following)
+  # Render a list of all friend requests (if !MuckFriends.configuration.enable_following)
   def friend_requests(user)
-    if !GlobalConfig.enable_following 
+    if !MuckFriends.configuration.enable_following 
       followers = user.followers
       render :partial => 'friends/friend_requests', :locals =>  { :followers => followers } unless followers.blank?
     end
@@ -87,7 +87,7 @@ module MuckFriendsHelper
   end
   
   # Render a follow/unfollow/friend request link appropriate to the current application settings and user relationship
-  # Requires enable_following and enable_friending be set in global_config.yml
+  # Requires enable_following and enable_friending be set in configuration see README
   #   If enable_following is true and enable_friending is false then only follow/unfollow links will be shown
   #   If enable_following is false and enable_friending is true then only friend request and unfriend links will be shown
   #   If enable_following is true and enable_friending is true then a hybrid model will be used.  Users can follow
@@ -97,9 +97,9 @@ module MuckFriendsHelper
     
     # User not logged in
     if user.blank?
-      if GlobalConfig.enable_following
+      if MuckFriends.configuration.enable_following
         key = 'login_or_sign_up_to_follow'
-      elsif GlobalConfig.enable_friending
+      elsif MuckFriends.configuration.enable_friending
         key = 'login_or_sign_up_to_friend'
       else
         return ''
@@ -112,25 +112,25 @@ module MuckFriendsHelper
     
     dom_id = make_id(user, target)
         
-    if GlobalConfig.enable_friending
+    if MuckFriends.configuration.enable_friending
       if user.friend_of?(target)
         return wrap_friend_link(link_to_remote( I18n.t('muck.friends.stop_being_friends_with', :user => target.display_name), :url => user_friend_path(user, target), :method => :delete), dom_id)
       elsif user.following?(target)
         return wrap_friend_link( I18n.t('muck.friends.friend_request_pending', :link => link_to_remote(I18n.t('muck.friends.delete'), :url => user_friend_path(user, target), :method => :delete)), dom_id)
       end
-    elsif GlobalConfig.enable_following
+    elsif MuckFriends.configuration.enable_following
       if user.following?(target)
         return wrap_friend_link(link_to_remote( I18n.t('muck.friends.stop_following', :user => target.display_name), :url => user_friend_path(user, target), :method => :delete), dom_id)
       end
     end
     
-    if GlobalConfig.enable_friending && user.followed_by?(target)
+    if MuckFriends.configuration.enable_friending && user.followed_by?(target)
       return wrap_friend_link(link_to_remote( I18n.t('muck.friends.acccept_friend_request', :user => target.display_name), :url => user_friends_path(user, :id => target), :method => :post), dom_id)
     end
     
-    if GlobalConfig.enable_following
+    if MuckFriends.configuration.enable_following
       wrap_friend_link(link_to_remote( I18n.t('muck.friends.start_following', :user => target.display_name), :url => user_friends_path(user, :id => target), :method => :post), dom_id)
-    elsif GlobalConfig.enable_friending
+    elsif MuckFriends.configuration.enable_friending
       wrap_friend_link(link_to_remote( I18n.t('muck.friends.friend_request_prompt', :user => target.display_name), :url => user_friends_path(user, :id => target), :method => :post), dom_id)
     end
     

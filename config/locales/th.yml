@@ -1,0 +1,49 @@
+--- 
+th: 
+  muck: 
+    activity_templates: 
+      follow: ลูกศิษย์
+      friends_with: "เพื่อน ๆ"
+    friends: 
+      acccept_friend_request: "ยอมรับ เพื่อน ขอ จาก %{user}"
+      accept: (ยอมรับ)
+      block: "%{user} Block"
+      block_problem: "มี ข้อ ผิด พลาด บล็อค %{user} คือ"
+      blocked: "บล็อก %{user}"
+      delete: (ลบ)
+      follow_activity: "%{inviter}} ขณะ นี้ ต่อ ไป %{invited}"
+      followers: ลูกศิษย์
+      following: "ต่อ ไป นี้"
+      following_you: "%{name}} ขณะ นี้ ต่อ ไป คุณ ใน %{application_name}"
+      friend_request: "%{name}} ส่ง คำขอ เป็น เพื่อน ใน %{application_name}"
+      friend_request_links: "%{profile}} ส่ง คำขอ เป็น เพื่อน %{accept}} %{ignore}"
+      friend_request_pending: "ขอ เพื่อน %{link} รอ"
+      friend_request_prompt: "ส่ง %{user} เพื่อน ขอ"
+      friend_request_sent: "ส่ง เพื่อน ขอ"
+      friends: "เพื่อน ๆ"
+      friends_title: "เพื่อน ของ ฉัน"
+      friends_with: "%{inviter}} ขณะ นี้ เป็น เพื่อน กับ %{invited}"
+      ignore: (ราย)
+      login: ล็อกอิน
+      login_or_sign_up_to_follow: "%{login}} หรือ %{signup} ต่อ ผู้ ใช้ นี้"
+      login_or_sign_up_to_friend: "%{login}} หรือ %{signup} ส่ง คำขอ เป็น เพื่อน"
+      mutual_friends: "เพื่อน รวม"
+      no_followers: "ตาม No"
+      no_friends: "ไม่มี เพื่อน"
+      no_mutual_friends: "ไม่ พบ ทั้ง เพื่อน"
+      not_following_anyone: "ไม่ ตาม ทุก คน"
+      problem_adding_follow: "มี ปัญหา เพิ่ม %{user} ตาม ราย ชื่อ ของ คุณ แล้ว. โปรด ลอง อีก ครั้ง."
+      problem_sending_friend_request: "มี ปัญหา ใน การ ส่ง คำขอ เป็น เพื่อน ไป %{user}. คือ โปรด ลอง อีก ครั้ง."
+      removed_following_error: "ปัญหา ที่ เกิด ขึ้น ขณะ ที่ พยายาม unfollow %{user}"
+      removed_friendship: "ลบ %{user} จาก เพื่อน ของ คุณ"
+      removed_friendship_error: "มี ปัญหา การ ลบ %{user} จาก ราย ชื่อ เพื่อน ของ คุณ คือ"
+      same_inviter_error_message: "ผู้ ใช้ ไม่ สามารถ เป็น เพื่อน กับ themself."
+      signup: "ลง ทะเบียน"
+      start_following: "ตาม %{user}"
+      stop_being_friends_with: "%{user} Unfriend"
+      stop_following: "หยุด %{user} ต่อ ไป นี้"
+      stopped_following: "สำเร็จ หยุด ไป %{user}"
+      unblock: "%{user} Unblock"
+      unblocked: "%{user} Unblocked"
+      view_all: "ดู ทั้งหมด"
+      you_are_now_following: "ตอน นี้ คุณ ไป %{user}"

@@ -14,13 +14,13 @@ class Muck::FriendsController < ApplicationController
   def create
     success = Friend.make_friends(@user, @target)
 
-    if GlobalConfig.enable_following
+    if MuckFriends.configuration.enable_following
       if success
         message = t('muck.friends.you_are_now_following', :user => @target.display_name)
       else
         message = t('muck.friends.problem_adding_follow', :user => @target.display_name)
       end
-    elsif GlobalConfig.enable_friending
+    elsif MuckFriends.configuration.enable_friending
       if success
         message = t('muck.friends.friend_request_sent')
       else
@@ -69,15 +69,15 @@ class Muck::FriendsController < ApplicationController
     # Other user may or may not be a friend.  If they weren't then revert_to_follower will return false.
     # We don't care that the other user wasn't reverted to a follower (since they might not have been a friend) so return true
     @user.drop_friend(@target)
-    if GlobalConfig.enable_friending 
+    if MuckFriends.configuration.enable_friending 
       message = t('muck.friends.removed_friendship', :user => @target.display_name)
-    elsif GlobalConfig.enable_following
+    elsif MuckFriends.configuration.enable_following
       message = t('muck.friends.stopped_following', :user => @target.display_name)
     end
 
-    # if GlobalConfig.enable_friending 
+    # if MuckFriends.configuration.enable_friending 
     #   message = t('muck.friends.removed_friendship_error', :user => @target.display_name)
-    # elsif GlobalConfig.enable_following
+    # elsif MuckFriends.configuration.enable_following
     #   message = t('muck.friends.removed_following_error', :user => @target.display_name)
     # end
     
