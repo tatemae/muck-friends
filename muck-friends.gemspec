@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Ball", "Joel Duffin"]
-  s.date = %q{2010-10-05}
+  s.date = %q{2010-10-07}
   s.description = %q{Friend engine for the muck system.}
   s.email = %q{justin@tatemae.com}
   s.extra_rdoc_files = [
@@ -85,15 +85,19 @@ Gem::Specification.new do |s|
      "lib/muck_friends.rb",
      "lib/muck_friends/config.rb",
      "lib/muck_friends/engine.rb",
+     "lib/muck_friends/mailers/friend_mailer.rb",
      "lib/muck_friends/models/friend.rb",
      "lib/muck_friends/models/user.rb",
      "lib/tasks/tasks.rb",
+     "muck-friends-3.0.0.gem",
+     "muck-friends.gemspec",
      "test/rails_test/Gemfile",
      "test/rails_test/Gemfile.lock",
      "test/rails_test/Rakefile",
      "test/rails_test/app/controllers/application_controller.rb",
      "test/rails_test/app/controllers/default_controller.rb",
      "test/rails_test/app/helpers/application_helper.rb",
+     "test/rails_test/app/mailers/friend_mailer.rb",
      "test/rails_test/app/models/.keep",
      "test/rails_test/app/models/activity.rb",
      "test/rails_test/app/models/country.rb",
