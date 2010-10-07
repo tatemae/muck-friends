@@ -7,37 +7,32 @@ These gems should be installed automatically when you install the muck-friends g
 to setup configuration.  The muck-activities gem is optional.  If it is installed and enable_friend_activity is true
 then friend and follow activity will be fed into the user's activity feeds
 
-  sudo gem install muck-friends
+Add this to your Gemfile:
 
-Add this to environment.rb:
+  gem 'muck-friends', :require => 'muck_friends'
 
-    config.gem 'muck-friends', :lib => 'muck_friends'
+Add an initializer with the following:
 
-
-Inside of global_config.yml add the following, changing the emails to match your application:
-
-  default: &DEFAULT
-
-    # Sent in emails to users
-    application_name: 'Name of my application'
-    from_email: 'support@example.com'
-    support_email: 'support@example.com'
-    admin_email: 'admin@example.com'
-
-    # Friend configuration
-    # Muck Friends provides a hybrid friend/follow model.  Either mode can be turned off or both can be enabled
+  MuckFriends.configure do |config|
+    # Friend Configuration
+    # The friend system provides a hybrid friend/follow model.  Either mode can be turned off or both can be enabled
     # If only following is enabled then users will be provided the ability to follow, unfollow, and block
     # If only friending is enabled then users will be provided a 'friend request' link and the ability to accept friend requests
     # If both modes are are enabled then users will be able to follow other users.  A mutual follow results in 'friends'.  An unfollow 
     # leaves the other party as just a follower.
-    # Note that at least one mode must be enabled or imagine all life as you know it stopping instantaneously and every molecule in your body exploding at the speed of light. 
-    enable_friending: true        # If true then friending is enabled.
-    enable_following: true        # If true then users can 'follow' each other.  If false then only friend requests will be used.
-    enable_friend_activity: true  # If true then friend related activity will show up in the activity feed.  Requires muck-activities gem
-    
+    # Note that at least one mode must be enabled.
+    config.enable_following = true   # Turn on 'following'.  This is similar to the 'follow' functionality on Twitter in that it let's users watch one 
+                                    # another's activities without having explicit permission from the user.  A mutual follow essentially becomes a
+                                    # friendship.
+    config.enable_following = true
+    config.enable_friending = true         # Turn on friend system.
+    config.enable_friend_activity = true   # If true then friend related activity will show up in the activity feed.  Requires muck-activities gem
+  end
+
+Also be sure to configure the other muck gems that muck friends depends on. Look at test/rails_test/config/initializers/muck.rb for an example.    
 == Usage
 
-You will need a friend model that 'include MuckFriends::Models::MuckFriend' and a user model that 'include MuckFriends::Models::MuckUser'
+You will need a friend model that has 'include MuckFriends::Models::MuckFriend' and a user model that has 'include MuckFriends::Models::MuckUser'
 
 == Example
 After installing the gem just create a friend model thus:
@@ -57,4 +52,4 @@ and a user model thus:
   end
 
 
-Copyright (c) 2009 Tatemae, released under the MIT license
+Copyright (c) 2009-2010 Tatemae, released under the MIT license
