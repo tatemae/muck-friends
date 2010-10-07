@@ -1,3 +1,3 @@
 class Activity < ActiveRecord::Base
-  include MuckActivities::Models::Activity
+  include MuckActivities::Models::MuckActivity
 end

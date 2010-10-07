@@ -80,9 +80,9 @@ module MuckFriendsHelper
     return '' if friend.blank?
     dom_id = make_block_id(user, target)
     if friend.blocked?
-      return wrap_friend_link(link_to_remote( I18n.t('muck.friends.unblock', :user => target.display_name), :url => user_friend_path(user, friend, :target_id => target, :unblock => true), :method => :put), dom_id, 'friendship-block')
+      return wrap_friend_link(link_to( I18n.t('muck.friends.unblock', :user => target.display_name), user_friend_path(user, friend, :target_id => target, :unblock => true), :class => 'ajax-update'), dom_id, 'friendship-block')
     else
-      return wrap_friend_link(link_to_remote( I18n.t('muck.friends.block', :user => target.display_name), :url => user_friend_path(user, friend, :target_id => target, :block => true), :method => :put), dom_id, 'friendship-block')
+      return wrap_friend_link(link_to( I18n.t('muck.friends.block', :user => target.display_name), user_friend_path(user, friend, :target_id => target, :block => true), :class => 'ajax-update'), dom_id, 'friendship-block')
     end
   end
   
@@ -114,36 +114,36 @@ module MuckFriendsHelper
         
     if MuckFriends.configuration.enable_friending
       if user.friend_of?(target)
-        return wrap_friend_link(link_to_remote( I18n.t('muck.friends.stop_being_friends_with', :user => target.display_name), :url => user_friend_path(user, target), :method => :delete), dom_id)
+        return wrap_friend_link(link_to( I18n.t('muck.friends.stop_being_friends_with', :user => target.display_name), user_friend_path(user, target), :class => 'ajax-delete'), dom_id)
       elsif user.following?(target)
-        return wrap_friend_link( I18n.t('muck.friends.friend_request_pending', :link => link_to_remote(I18n.t('muck.friends.delete'), :url => user_friend_path(user, target), :method => :delete)), dom_id)
+        return wrap_friend_link( I18n.t('muck.friends.friend_request_pending', :link => link_to(I18n.t('muck.friends.delete'), user_friend_path(user, target), :class => 'ajax-delete')), dom_id)
       end
     elsif MuckFriends.configuration.enable_following
       if user.following?(target)
-        return wrap_friend_link(link_to_remote( I18n.t('muck.friends.stop_following', :user => target.display_name), :url => user_friend_path(user, target), :method => :delete), dom_id)
+        return wrap_friend_link(link_to( I18n.t('muck.friends.stop_following', :user => target.display_name), user_friend_path(user, target), :class => 'ajax-delete'), dom_id)
       end
     end
     
     if MuckFriends.configuration.enable_friending && user.followed_by?(target)
-      return wrap_friend_link(link_to_remote( I18n.t('muck.friends.acccept_friend_request', :user => target.display_name), :url => user_friends_path(user, :id => target), :method => :post), dom_id)
+      return wrap_friend_link(link_to( I18n.t('muck.friends.acccept_friend_request', :user => target.display_name), user_friends_path(user, :id => target), :class => 'ajax-update'), dom_id)
     end
     
     if MuckFriends.configuration.enable_following
-      wrap_friend_link(link_to_remote( I18n.t('muck.friends.start_following', :user => target.display_name), :url => user_friends_path(user, :id => target), :method => :post), dom_id)
+      wrap_friend_link(link_to( I18n.t('muck.friends.start_following', :user => target.display_name), user_friends_path(user, :id => target), :class => 'ajax-update'), dom_id)
     elsif MuckFriends.configuration.enable_friending
-      wrap_friend_link(link_to_remote( I18n.t('muck.friends.friend_request_prompt', :user => target.display_name), :url => user_friends_path(user, :id => target), :method => :post), dom_id)
+      wrap_friend_link(link_to( I18n.t('muck.friends.friend_request_prompt', :user => target.display_name), user_friends_path(user, :id => target), :class => 'ajax-update'), dom_id)
     end
     
   end
 
   def accept_follower_link(user, target)
     dom_id = make_id(user, target)
-    wrap_friend_link(link_to_remote( I18n.t('muck.friends.accept'), { :url => user_friends_path(user, :id => target), :method => :post}, {:id => "accept-#{target.id}", :class => 'notification-link'}), dom_id)
+    wrap_friend_link(link_to( I18n.t('muck.friends.accept'), user_friends_path(user, target), :id => "accept-#{target.id}", :class => 'notification-link ajax-update'), dom_id)
   end
 
   def ignore_friend_request_link(user, target)
     dom_id = make_id(user, target)
-    wrap_friend_link(link_to_remote( I18n.t('muck.friends.ignore'), { :url => user_friend_path(user, target), :method => :delete }, {:id => "ignore-#{target.id}", :class => 'notification-link'}), dom_id)
+    wrap_friend_link(link_to( I18n.t('muck.friends.ignore'), user_friend_path(user, target), :id => "ignore-#{target.id}", :class => 'notification-link ajax-delete'), dom_id)
   end
 
   protected

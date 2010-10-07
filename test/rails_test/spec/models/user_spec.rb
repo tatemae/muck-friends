@@ -1,9 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-# Used to test muck_friend_user
-class UserTest < ActiveSupport::TestCase
+describe User do
 
-  describe "user instance with include MuckFriends::Models::User" do
+  describe "user instance with 'include MuckFriends::Models::MuckUser'" do
     it { should have_many :friendships }
     it { should have_many :follower_friends }
     it { should have_many :following_friends }
@@ -41,9 +40,9 @@ class UserTest < ActiveSupport::TestCase
         MuckFriends.configuration.enable_following = @temp_enable_following
       end
       it "should stop being friends" do
-        assert @quentin.follow(@aaron)
-        assert @aaron.become_friends_with(@quentin)
-        assert @quentin.drop_friend(@aaron)
+        @quentin.follow(@aaron).should be_true
+        @aaron.become_friends_with(@quentin).should be_true
+        @quentin.drop_friend(@aaron).should be_true
         @quentin.reload
         @aaron.reload
         @quentin.should_not be_friend_of(@aaron)
@@ -55,9 +54,9 @@ class UserTest < ActiveSupport::TestCase
       end
       describe "drop_friend following not enabled" do
         before do
-          assert @quentin.follow(@aaron)
-          assert @aaron.become_friends_with(@quentin)
-          assert @quentin.drop_friend(@aaron)
+          @quentin.follow(@aaron).should be_true
+          @aaron.become_friends_with(@quentin).should be_true
+          @quentin.drop_friend(@aaron).should be_true
         end
         it "should stop being friends with the user and don't retain follow" do
           !@quentin.followings.any?{|f| f.id.should == @aaron.id}
@@ -75,139 +74,139 @@ class UserTest < ActiveSupport::TestCase
         MuckFriends.configuration.enable_following = @temp_enable_following
       end
       it "should stop being friends but still allow follow" do
-        assert @quentin.follow(@aaron)
-        assert @aaron.become_friends_with(@quentin)
-        assert @quentin.drop_friend(@aaron)
+        @quentin.follow(@aaron).should be_true
+        @aaron.become_friends_with(@quentin).should be_true
+        @quentin.drop_friend(@aaron).should be_true
         @quentin.reload
         @aaron.reload
         @quentin.should_not be_friend_of(@aaron)
         @quentin.should_not be_following(@aaron)
-        @quentin.followed_.should be_y(@aaron)
+        @quentin.followed_by?(@aaron).should be_true
         @aaron.should_not be_friend_of(@quentin)
-        @aaron.followi.should be_g(@quentin)
+        @aaron.following?(@quentin).should be_true
         @aaron.should_not be_followed_by(@quentin)
       end
       
       describe "drop_friend" do
         before do
-          assert @quentin.follow(@aaron)
+          @quentin.follow(@aaron).should be_true
         end
         it "should stop following the other user but retain follow for other user " do
-          assert @aaron.become_friends_with(@quentin)
-          assert @quentin.drop_friend(@aaron)
-          !@quentin.followings.any?{|f| f.id.should == @aaron.id}
-          @aaron.followings.any?{|f| f.id.should == @quentin.id}
+          @aaron.become_friends_with(@quentin).should be_true
+          @quentin.drop_friend(@aaron).should be_true
+          @quentin.followings.any?{|f| f.id == @aaron.id}.should be_false
+          @aaron.followings.any?{|f| f.id == @quentin.id}.should be_true
         end
         it "should stop being friends with the user but retain follow for other user" do
-          assert !@quentin.drop_friend(@aaron) # @aaron wasn't following @quentin so drop_friend will return false indicating that a friend object wasn't found to let @aaron continue following @quentin
-          !@quentin.followings.any?{|f| f.id.should == @aaron.id}
+          @quentin.drop_friend(@aaron).should be_false # @aaron wasn't following @quentin so drop_friend will return false indicating that a friend object wasn't found to let @aaron continue following @quentin
+          @quentin.followings.any?{|f| f.id == @aaron.id}.should be_false
         end
       end
 
       it "should have friends" do
-        assert @aaron.follow(@quentin)
-        assert @quentin.become_friends_with(@aaron)
-        assert @friend_guy.follow(@quentin)
-        assert @quentin.become_friends_with(@friend_guy)
+        @aaron.follow(@quentin).should be_true
+        @quentin.become_friends_with(@aaron).should be_true
+        @friend_guy.follow(@quentin).should be_true
+        @quentin.become_friends_with(@friend_guy).should be_true
         @quentin.reload
         @aaron.reload
         @friend_guy.reload
-        @quentin.friends.any?{|f| f.id == @aaron.id || f.id.should == @friend_guy.id}
-        @aaron.friends.any?{|f| f.id.should == @quentin.id}
-        @friend_guy.friends.any?{|f| f.id.should == @quentin.id}
+        @quentin.friends.any?{|f| f.id == @aaron.id || f.id == @friend_guy.id}.should be_true
+        @aaron.friends.any?{|f| f.id == @quentin.id}.should be_true
+        @friend_guy.friends.any?{|f| f.id == @quentin.id}.should be_true
       end
 
       it "should not have follower as friend" do
-        assert @follower_guy.follow(@quentin)
-        !@quentin.friends.any?{|f| f.id.should == @follower_guy.id}
+        @follower_guy.follow(@quentin).should be_true
+        @quentin.friends.any?{|f| f.id == @follower_guy.id}.should be_false
       end
 
       it "should have followers" do
-        assert @follower_guy.follow(@quentin)
-        @quentin.followers.any?{|f| f.id.should == @follower_guy.id}
+        @follower_guy.follow(@quentin).should be_true
+        @quentin.followers.any?{|f| f.id == @follower_guy.id}.should be_true
       end
 
       it "should have people user follows (followings)" do
-        assert @follower_guy.follow(@quentin)
+        @follower_guy.follow(@quentin).should be_true
         @follower_guy.followings.any?{|f| f.id.should == @quentin.id}
       end
 
       it "should be a friend" do
-        assert @quentin.follow(@aaron)
-        assert @quentin.follow(@friend_guy)
-        assert @aaron.become_friends_with(@quentin)
-        assert @friend_guy.become_friends_with(@quentin)
-        2.should == @quentin.occurances_as_friend.count
+        @quentin.follow(@aaron).should be_true
+        @quentin.follow(@friend_guy).should be_true
+        @aaron.become_friends_with(@quentin).should be_true
+        @friend_guy.become_friends_with(@quentin).should be_true
+        @quentin.occurances_as_friend.count.should == 2
       end
 
       it "should find friendships initiated by me" do
-        assert @quentin.follow(@aaron)
-        assert @quentin.follow(@friend_guy)
+        @quentin.follow(@aaron).should be_true
+        @quentin.follow(@friend_guy).should be_true
         @quentin.friendships_initiated_by_me.count.should == 2
-        @quentin.friendships_initiated_by_me.any?{|f| f.id == @aaron.id || f.id.should == @friend_guy.id}
+        @quentin.friendships_initiated_by_me.any?{|f| f.id == @aaron.id || f.id == @friend_guy.id}.should be_true
       end
 
       it "should find friendships not initiated by me" do
-        assert @aaron.follow(@quentin)
-        assert @friend_guy.follow(@quentin)
+        @aaron.follow(@quentin).should be_true
+        @friend_guy.follow(@quentin).should be_true
         @quentin.friendships_not_initiated_by_me.count.should == 2
-        @quentin.friendships_not_initiated_by_me.any?{|f| f.id == @aaron.id || f.id.should == @friend_guy.id}
+        @quentin.friendships_not_initiated_by_me.any?{|f| f.id == @aaron.id || f.id == @friend_guy.id}.should be_true
       end
 
-      it "shouldfollow the user" do
-        assert @quentin.follow(@aaron)
-        @quentin.followings.any?{|f| f.id.should == @aaron.id}
+      it "should follow the user" do
+        @quentin.follow(@aaron).should be_true
+        @quentin.followings.any?{|f| f.id == @aaron.id}.should be_true
       end
 
       it "should stop following the user" do
-        assert @quentin.follow(@aaron)
-        assert @quentin.stop_following(@aaron)
-        !@quentin.followings.any?{|f| f.id.should == @aaron.id}
+        @quentin.follow(@aaron).should be_true
+        @quentin.stop_following(@aaron).should be_true
+        @quentin.followings.any?{|f| f.id == @aaron.id}.should be_false
       end
 
       it "should become friends" do
-        assert @quentin.follow(@aaron)
-        assert @aaron.become_friends_with(@quentin)
+        @quentin.follow(@aaron).should be_true
+        @aaron.become_friends_with(@quentin).should be_true
         @quentin.reload
         @aaron.reload
-        @aaron.friends.any?{|f| f.id.should == @quentin.id}
-        @quentin.friends.any?{|f| f.id.should == @aaron.id}
+        @aaron.friends.any?{|f| f.id == @quentin.id}.should be_true
+        @quentin.friends.any?{|f| f.id == @aaron.id}.should be_true
       end
 
       it "should not have a network" do
-        assert !@quentin.has_network?
+        @quentin.has_network?.should be_false
       end
 
       it "should have a network" do
-        assert @quentin.follow(@aaron)
-        assert @quentin.has_network?
+        @quentin.follow(@aaron).should be_true
+        @quentin.has_network?.should be_true
       end
 
       it "should block user" do
-        assert @quentin.follow(@aaron)
-        assert @aaron.block_user(@quentin)
-        !@aaron.friends.any?{|f| f.id.should == @quentin.id}
-        !@aaron.followers.any?{|f| f.id.should == @quentin.id}
-        !@quentin.followings.any?{|f| f.id.should == @aaron.id}
-        @aaron.block.should be_d(@quentin)
+        @quentin.follow(@aaron).should be_true
+        @aaron.block_user(@quentin).should be_true
+        @aaron.friends.any?{|f| f.id == @quentin.id}.should be_false
+        @aaron.followers.any?{|f| f.id == @quentin.id}.should be_false
+        @quentin.followings.any?{|f| f.id == @aaron.id}.should be_false
+        @aaron.blocked?(@quentin).should be_true
       end
 
       it "should unblock user" do
-        assert @quentin.follow(@aaron)
-        assert @aaron.block_user(@quentin)
-        assert @aaron.unblock_user(@quentin)
-        @aaron.followers.any?{|f| f.id.should == @quentin.id}
-        @quentin.followings.any?{|f| f.id.should == @aaron.id}
-        @aaron.block.should_not be_d(@quentin)
+        @quentin.follow(@aaron).should be_true
+        @aaron.block_user(@quentin).should be_true
+        @aaron.unblock_user(@quentin).should be_true
+        @aaron.followers.any?{|f| f.id == @quentin.id}.should be_true
+        @quentin.followings.any?{|f| f.id == @aaron.id}.should be_true
+        @aaron.blocked?(@quentin).should be_false
       end
       
       it "should have friend relation" do
-        assert @quentin.follow(@aaron)
-        assert @aaron.friendship_with(@quentin)
+        @quentin.follow(@aaron).should be_true
+        @aaron.friendship_with(@quentin).should be_true
       end
       
       it "should not have friend relation" do
-        assert !@quentin.friendship_with(@aaron)
+        @quentin.friendship_with(@aaron).should be_false
       end
       
     end

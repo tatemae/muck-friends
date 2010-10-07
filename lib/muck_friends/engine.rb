@@ -1,7 +1,7 @@
 require 'muck_friends'
 require 'rails'
 
-module MuckComments
+module MuckFriends
   class Engine < ::Rails::Engine
     
     def muck_name

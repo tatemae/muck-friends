@@ -33,6 +33,36 @@ ActiveRecord::Schema.define(:version => 20100123233654) do
 
   add_index "access_codes", ["code"], :name => "index_access_codes_on_code"
 
+  create_table "activities", :force => true do |t|
+    t.integer  "item_id"
+    t.string   "item_type"
+    t.string   "template"
+    t.integer  "source_id"
+    t.string   "source_type"
+    t.text     "content"
+    t.string   "title"
+    t.boolean  "is_status_update", :default => false
+    t.boolean  "is_public",        :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "comment_count",    :default => 0
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
+  end
+
+  add_index "activities", ["attachable_id", "attachable_type"], :name => "index_activities_on_attachable_id_and_attachable_type"
+  add_index "activities", ["item_id", "item_type"], :name => "index_activities_on_item_id_and_item_type"
+  add_index "activities", ["source_id", "source_type"], :name => "index_activities_on_source_id_and_source_type"
+
+  create_table "activity_feeds", :force => true do |t|
+    t.integer "activity_id"
+    t.integer "ownable_id"
+    t.string  "ownable_type"
+  end
+
+  add_index "activity_feeds", ["activity_id"], :name => "index_activity_feeds_on_activity_id"
+  add_index "activity_feeds", ["ownable_id", "ownable_type"], :name => "index_activity_feeds_on_ownable_id_and_ownable_type"
+
   create_table "countries", :force => true do |t|
     t.string  "name",         :limit => 128, :default => "",   :null => false
     t.string  "abbreviation", :limit => 3,   :default => "",   :null => false
@@ -48,6 +78,17 @@ ActiveRecord::Schema.define(:version => 20100123233654) do
   end
 
   add_index "domain_themes", ["uri"], :name => "index_domain_themes_on_uri"
+
+  create_table "friends", :force => true do |t|
+    t.integer  "inviter_id"
+    t.integer  "invited_id"
+    t.integer  "status",     :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "friends", ["invited_id", "inviter_id"], :name => "index_friends_on_invited_id_and_inviter_id"
+  add_index "friends", ["inviter_id", "invited_id"], :name => "index_friends_on_inviter_id_and_invited_id"
 
   create_table "languages", :force => true do |t|
     t.string  "name"
@@ -66,6 +107,28 @@ ActiveRecord::Schema.define(:version => 20100123233654) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "profiles", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "location"
+    t.decimal  "lat",                :precision => 15, :scale => 10
+    t.decimal  "lng",                :precision => 15, :scale => 10
+    t.text     "about"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "city"
+    t.integer  "state_id"
+    t.integer  "country_id"
+    t.integer  "language_id"
+  end
+
+  add_index "profiles", ["lat", "lng"], :name => "index_profiles_on_lat_and_lng"
+  add_index "profiles", ["user_id"], :name => "index_profiles_on_user_id"
 
   create_table "roles", :force => true do |t|
     t.string   "rolename"

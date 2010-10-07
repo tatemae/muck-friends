@@ -2,8 +2,8 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.crypto_provider = Authlogic::CryptoProviders::BCrypt
   end
-  include MuckUsers::Models::User
-  include MuckFriends::Models::User
+  include MuckUsers::Models::MuckUser
+  include MuckFriends::Models::MuckUser
   include MuckProfiles::Models::User
-  include MuckActivities::Models::ActivityConsumer
+  include MuckActivities::Models::MuckActivityConsumer
 end

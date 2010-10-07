@@ -7,13 +7,42 @@ GIT
       activesupport
 
 PATH
+  remote: /Users/jbasdf/projects/muck-activities
+  specs:
+    muck-activities (3.0.0)
+      muck-comments
+      muck-engine
+      muck-users
+
+PATH
   remote: /Users/jbasdf/projects/muck-engine
   specs:
-    muck-engine (3.0.0)
-      git
+    muck-engine (3.0.1)
       overlord
-      validation_reflection
+      validation_reflection (>= 1.0.0.rc.1)
       will_paginate
+
+PATH
+  remote: /Users/jbasdf/projects/muck-friends
+  specs:
+    muck-friends (3.0.0)
+      muck-engine
+      muck-profiles
+      muck-users
+
+PATH
+  remote: /Users/jbasdf/projects/muck-profiles
+  specs:
+    muck-profiles (3.0.0)
+      geokit
+      muck-engine
+      muck-raker
+      muck-shares
+      muck-solr
+      muck-users
+      paperclip
+      sanitize
+      uploader
 
 PATH
   remote: /Users/jbasdf/projects/muck-users
@@ -63,6 +92,12 @@ GEM
     arel (1.0.1)
       activesupport (~> 3.0.0)
     autotest (4.3.2)
+    awesome_nested_set (1.4.3)
+      activerecord (>= 1.1)
+    aws-s3 (0.6.2)
+      builder
+      mime-types
+      xml-simple
     babosa (0.2.0)
     bcrypt-ruby (2.1.2)
     builder (2.1.2)
@@ -95,9 +130,9 @@ GEM
       rake (>= 0.8.7)
     friendly_id (3.1.7)
       babosa (~> 0.2.0)
+    geokit (1.5.0)
     gherkin (2.1.5)
       trollop (~> 1.16.2)
-    git (1.2.5)
     httparty (0.6.1)
       crack (= 0.1.8)
     i18n (0.4.1)
@@ -111,10 +146,25 @@ GEM
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
+    muck-comments (3.0.0)
+      awesome_nested_set
+      muck-engine
+      muck-users
+      sanitize
+    muck-raker (0.3.18)
+    muck-shares (3.0.0)
+      muck-activities
+      muck-comments
+      muck-engine
+      muck-users
+    muck-solr (0.4.7)
     mysql (2.8.1)
     nokogiri (1.4.3.1)
     overlord (3.0.0)
       httparty
+    paperclip (2.3.3)
+      activerecord
+      activesupport
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -154,6 +204,8 @@ GEM
     ruby-debug-base (0.10.3)
       linecache (>= 0.3)
     rubyzip (0.9.4)
+    sanitize (1.2.1)
+      nokogiri (~> 1.4.1)
     searchlogic (2.4.26)
       activerecord (>= 2.0.0)
     selenium-webdriver (0.0.28)
@@ -167,8 +219,14 @@ GEM
       polyglot (>= 0.3.1)
     trollop (1.16.2)
     tzinfo (0.3.23)
-    validation_reflection (0.3.8)
+    uploader (3.0.1)
+      aws-s3
+      mime-types
+      paperclip
+      rack
+    validation_reflection (1.0.0.rc.1)
     will_paginate (2.3.15)
+    xml-simple (1.0.12)
 
 PLATFORMS
   ruby
@@ -184,7 +242,10 @@ DEPENDENCIES
   disguise
   factory_girl
   launchy
+  muck-activities!
   muck-engine!
+  muck-friends!
+  muck-profiles!
   muck-users!
   mysql
   overlord

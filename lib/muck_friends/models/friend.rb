@@ -1,11 +1,13 @@
+# include MuckFriends::Models::MuckFriend
 module MuckFriends
   module Models
-    module Friend
+    module MuckFriend
       extend ActiveSupport::Concern
     
       included do
         belongs_to :inviter, :class_name => 'User'
         belongs_to :invited, :class_name => 'User'
+        validate :check_invited
       end
 
       module ClassMethods
@@ -112,7 +114,7 @@ module MuckFriends
       end
 
       def after_create
-        FriendMailer.deliver_follow(inviter, invited)
+        FriendMailer.follow(inviter, invited).deliver
       end
       
       def block
@@ -143,8 +145,8 @@ module MuckFriends
         content = I18n.t('muck.friends.friends_with', :inviter => self.inviter.full_name, :invited => self.invited.full_name)
         add_activity(self.inviter.feed_to + self.invited.feed_to, self.inviter, self, 'friends_with', '', content)
       end
-
-      def validate
+      
+      def check_invited
         errors.add('inviter', I18n.t('muck.friends.same_inviter_error_message')) if invited == inviter
       end
       

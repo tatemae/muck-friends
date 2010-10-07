@@ -1,4 +1,4 @@
 class Friend < ActiveRecord::Base
-  include MuckFriends::Models::Friend
-  include MuckActivities::Models::ActivityConsumer
+  include MuckFriends::Models::MuckFriend
+  include MuckActivities::Models::MuckActivityConsumer
 end

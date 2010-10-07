@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Muck::FriendsController do
   
+  render_views
+  
   before do
     @quentin = Factory(:user)
     @aaron = Factory(:user)

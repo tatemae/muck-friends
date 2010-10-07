@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-# Used to test muck_friend
-class FriendTest < ActiveSupport::TestCase
+describe Friend do
 
   describe "A Friend instance" do    
     it { should belong_to :inviter }
@@ -21,77 +20,80 @@ class FriendTest < ActiveSupport::TestCase
         Friend.destroy_all
       end
       it "should be able to start and stop following aaron" do
-        @friend_guy.followi.should_not be_g(@aaron)
-        assert_difference "Friend.count" do
+        @friend_guy.following?(@aaron).should be_false
+        lambda{
           Friend.add_follower(@friend_guy, @aaron)
           @aaron.reload
           @friend_guy.reload
-          @friend_guy.followi.should be_g(@aaron)
-        end
-        assert_difference "Friend.count", -1 do
+          @friend_guy.following?(@aaron).should be_true
+        }.should change(Friend, :count).by(1)
+        lambda{
           Friend.stop_following(@friend_guy, @aaron)
           @aaron.reload and @friend_guy.reload
-          @friend_guy.followi.should_not be_g(@aaron)
-        end
+          @friend_guy.following?(@aaron).should be_false          
+        }.should change(Friend, :count).by(-1)
       end
-
+      
+      it "should not have any effects on followers" do
+        lambda{
+          Friend.stop_following(@friend_guy, @aaron).should be_false
+        }.should_not change(Friend, :count)
+      end
+      
       it "should not have any effect on friends" do
-        assert_no_difference "Friend.count" do        
-          assert !Friend.stop_following(@friend_guy, @aaron)
-        end
-        assert_no_difference "Friend.count" do        
-          assert Friend.stop_being_friends(@friend_guy, @aaron) # will return true as long as no friend entries are found for the given users
-        end
+        lambda{
+          Friend.stop_being_friends(@friend_guy, @aaron).should be_true # will return true as long as no friend entries are found for the given users
+        }.should_not change(Friend, :count)
       end
     
       it "should not create an association with the same user" do
-        assert !Friend.add_follower(@quentin, @quentin)
+        Friend.add_follower(@quentin, @quentin).should be_false
         Friend.count.should == 0
       end
 
-      it "shouldcreate a new follower" do
-        assert Friend.add_follower(@quentin, @aaron)
+      it "should create a new follower" do
+        Friend.add_follower(@quentin, @aaron).should be_true
         Friend.count.should == 1
-        @quentin.reload.friend_.should_not be_f(@aaron.reload)
-        @quentin.followi.should be_g(@aaron)
-        @aaron.followed_.should be_y(@quentin)
+        @quentin.reload.friend_of?(@aaron.reload).should be_false
+        @quentin.following?(@aaron).should be_true
+        @aaron.followed_by?(@quentin).should be_true
       end
 
       it "should not find a following to turn into a friendship so just makes a follower" do
-        assert Friend.make_friends(@quentin, @aaron)
-        Friend.count.should == 1
-        @quentin.reload.friend_.should_not be_f(@aaron.reload)
-        @quentin.followi.should be_g(@aaron)
-        @aaron.followed_.should be_y(@quentin)
+        Friend.make_friends(@quentin, @aaron).should be_true
+        Friend.count.should == 1   
+        @quentin.reload.friend_of?(@aaron.reload).should be_false
+        @quentin.following?(@aaron).should be_true
+        @aaron.followed_by?(@quentin).should be_true
       end
 
-      it "shouldturn a following into a friendship" do
+      it "should turn a following into a friendship" do
         assert Friend.add_follower(@quentin, @aaron)
         Friend.count.should == 1
         assert Friend.make_friends(@aaron, @quentin)
         Friend.count.should == 2
         @quentin.reload
         @aaron.reload
-        @quentin.friend_.should be_f(@aaron)
-        @aaron.friend_.should be_f(@quentin)
+        @quentin.friend_of?(@aaron).should be_true
+        @aaron.friend_of?(@quentin).should be_true
       end
 
-      it "shouldturn a following into a friendship with reversed users" do
+      it "should turn a following into a friendship with reversed users" do
         assert Friend.add_follower(@quentin, @aaron)
         Friend.count.should == 1
         assert Friend.make_friends(@quentin, @aaron)
         Friend.count.should == 2
         @quentin.reload
         @aaron.reload
-        @quentin.friend_.should be_f(@aaron)
-        @aaron.friend_.should be_f(@quentin)
+        @quentin.friend_of?(@aaron).should be_true
+        @aaron.friend_of?(@quentin).should be_true
       end
 
       it "should not find a friendship so can't stop being friends" do
-        assert !Friend.revert_to_follower(@quentin, @aaron) # revert_to_follower will return true as long as the desired state (reverted to follower) is achieved.
+        Friend.revert_to_follower(@quentin, @aaron).should be_false # revert_to_follower will return true as long as the desired state (reverted to follower) is achieved.
       end
 
-      it "shouldrevert to follower" do
+      it "should revert to follower" do
         assert Friend.add_follower(@quentin, @aaron)
         assert Friend.make_friends(@quentin, @aaron)
         Friend.count.should == 2
@@ -103,9 +105,9 @@ class FriendTest < ActiveSupport::TestCase
         @aaron.reload
         @quentin.should_not be_friend_of(@aaron)
         @quentin.should_not be_following(@aaron)
-        @quentin.followed_.should be_y(@aaron)
+        @quentin.followed_by?(@aaron).should be_true
         @aaron.should_not be_friend_of(@quentin)
-        @aaron.followi.should be_g(@quentin)
+        @quentin.followed_by?(@aaron).should be_true
         @aaron.should_not be_followed_by(@quentin)
       end
 
@@ -150,16 +152,16 @@ class FriendTest < ActiveSupport::TestCase
         @aaron.should_not be_followed_by(@quentin)
       end
       
-      it "shouldshow if user is blocked" do
+      it "should show if user is blocked" do
         assert Friend.add_follower(@quentin, @aaron)
         Friend.block_user(@aaron, @quentin)
-        Friend.block.should be_d(@aaron, @quentin)
+        Friend.blocked?(@aaron, @quentin).should be_true
       end
       
     end
     
-    it "shouldignore block user request" do
-      assert !Friend.block_user(nil, nil)
+    it "should ignore block user request" do
+      Friend.block_user(nil, nil).should be_false
     end
     
     describe "activities" do
@@ -170,15 +172,15 @@ class FriendTest < ActiveSupport::TestCase
       after do
         MuckFriends.configuration.enable_friend_activity = @temp_enable_friend_activity
       end
-      it "shouldadd follow activity" do
-        assert_difference "Activity.count", 1 do
-          Friend.add_follower(@quentin, @aaron)
-        end
+      it "should add follow activity" do
+        lambda{
+          Friend.add_follower(@quentin, @aaron)          
+        }.should change(Activity, :count).by(1)
       end
-      it "shouldadd friends with activity" do
-        assert_difference "Activity.count", 1 do
-          Friend.make_friends(@quentin, @aaron)
-        end
+      it "should add friends with activity" do
+        lambda{
+          Friend.make_friends(@quentin, @aaron)          
+        }.should change(Activity, :count).by(1)
       end
     end
   end

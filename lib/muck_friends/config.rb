@@ -11,7 +11,7 @@ module MuckFriends
   end
 
   class Configuration
-    attr_accessor :allow_following
+    attr_accessor :enable_following
     attr_accessor :enable_friending
     attr_accessor :enable_friend_activity
     
