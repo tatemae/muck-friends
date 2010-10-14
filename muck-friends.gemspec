@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Ball", "Joel Duffin"]
-  s.date = %q{2010-10-07}
+  s.date = %q{2010-10-13}
   s.description = %q{Friend engine for the muck system.}
   s.email = %q{justin@tatemae.com}
   s.extra_rdoc_files = [
@@ -22,9 +22,9 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "app/controllers/muck/friends_controller.rb",
-     "app/helpers/muck-friends_helper.rb",
-     "app/views/activity_templates/_follow.html.erb",
-     "app/views/activity_templates/_friends_with.html.erb",
+     "app/helpers/muck_friends_helper.rb",
+     "app/views/activity_templates/_follow.erb",
+     "app/views/activity_templates/_friends_with.erb",
      "app/views/friend_mailer/follow.text.html.erb",
      "app/views/friend_mailer/follow.text.plain.erb",
      "app/views/friend_mailer/friend_request.text.html.erb",
@@ -89,7 +89,6 @@ Gem::Specification.new do |s|
      "lib/muck-friends/models/friend.rb",
      "lib/muck-friends/models/user.rb",
      "lib/tasks/tasks.rb",
-     "muck-friends-3.0.0.gem",
      "muck-friends.gemspec",
      "test/rails_test/Gemfile",
      "test/rails_test/Gemfile.lock",
@@ -729,11 +728,12 @@ Gem::Specification.new do |s|
      "test/rails_test/public/stylesheets/themes/red/styles.css",
      "test/rails_test/spec/controllers/default_controller_spec.rb",
      "test/rails_test/spec/controllers/friends_controller_spec.rb",
-     "test/rails_test/spec/helpers/muck-friends_helper_spec.rb",
+     "test/rails_test/spec/helpers/muck_friends_helper_spec.rb",
      "test/rails_test/spec/mailers/friend_mailer_spec.rb",
      "test/rails_test/spec/models/friend_spec.rb",
      "test/rails_test/spec/models/user_spec.rb",
-     "test/rails_test/spec/spec_helper.rb"
+     "test/rails_test/spec/spec_helper.rb",
+     "test/rails_test/test/fixtures/rails.png"
   ]
   s.homepage = %q{http://github.com/tatemae/muck-friends}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -793,7 +793,7 @@ Gem::Specification.new do |s|
      "test/rails_test/public/dispatch.rb",
      "test/rails_test/spec/controllers/default_controller_spec.rb",
      "test/rails_test/spec/controllers/friends_controller_spec.rb",
-     "test/rails_test/spec/helpers/muck-friends_helper_spec.rb",
+     "test/rails_test/spec/helpers/muck_friends_helper_spec.rb",
      "test/rails_test/spec/mailers/friend_mailer_spec.rb",
      "test/rails_test/spec/models/friend_spec.rb",
      "test/rails_test/spec/models/user_spec.rb",
