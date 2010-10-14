@@ -4,6 +4,6 @@ class User < ActiveRecord::Base
   end
   include MuckUsers::Models::MuckUser
   include MuckFriends::Models::MuckUser
-  include MuckProfiles::Models::User
+  include MuckProfiles::Models::MuckUser
   include MuckActivities::Models::MuckActivityConsumer
 end

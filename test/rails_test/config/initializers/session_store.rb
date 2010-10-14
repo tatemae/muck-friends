@@ -1,6 +1,6 @@
 # Be sure to restart your server when you modify this file.
 
-RailsTest::Application.config.session_store :cookie_store, :key => '_muck_engine_session'
+RailsTest::Application.config.session_store :cookie_store, :key => '_muck_friends_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information

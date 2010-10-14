@@ -9,7 +9,7 @@ then friend and follow activity will be fed into the user's activity feeds
 
 Add this to your Gemfile:
 
-  gem 'muck-friends', :require => 'muck_friends'
+  gem 'muck-friends'
 
 Add an initializer with the following:
 
@@ -47,7 +47,7 @@ and a user model thus:
   class User < ActiveRecord::Base
     include MuckUsers::Models::MuckUser
     include MuckFriends::Models::MuckUser
-    include MuckProfiles::Models::User
+    include MuckProfiles::Models::MuckUser
     include MuckActivities::Models::MuckActivityConsumer # requires the muck-activities gem
   end
 

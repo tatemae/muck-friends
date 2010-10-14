@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "app/controllers/muck/friends_controller.rb",
-     "app/helpers/muck_friends_helper.rb",
+     "app/helpers/muck-friends_helper.rb",
      "app/views/activity_templates/_follow.html.erb",
      "app/views/activity_templates/_friends_with.html.erb",
      "app/views/friend_mailer/follow.text.html.erb",
@@ -82,12 +82,12 @@ Gem::Specification.new do |s|
      "config/locales/zh.yml",
      "config/routes.rb",
      "db/migrate/20090608073052_create_friends.rb",
-     "lib/muck_friends.rb",
-     "lib/muck_friends/config.rb",
-     "lib/muck_friends/engine.rb",
-     "lib/muck_friends/mailers/friend_mailer.rb",
-     "lib/muck_friends/models/friend.rb",
-     "lib/muck_friends/models/user.rb",
+     "lib/muck-friends.rb",
+     "lib/muck-friends/config.rb",
+     "lib/muck-friends/engine.rb",
+     "lib/muck-friends/mailers/friend_mailer.rb",
+     "lib/muck-friends/models/friend.rb",
+     "lib/muck-friends/models/user.rb",
      "lib/tasks/tasks.rb",
      "muck-friends-3.0.0.gem",
      "muck-friends.gemspec",
@@ -729,13 +729,13 @@ Gem::Specification.new do |s|
      "test/rails_test/public/stylesheets/themes/red/styles.css",
      "test/rails_test/spec/controllers/default_controller_spec.rb",
      "test/rails_test/spec/controllers/friends_controller_spec.rb",
-     "test/rails_test/spec/helpers/muck_friends_helper_spec.rb",
+     "test/rails_test/spec/helpers/muck-friends_helper_spec.rb",
      "test/rails_test/spec/mailers/friend_mailer_spec.rb",
      "test/rails_test/spec/models/friend_spec.rb",
      "test/rails_test/spec/models/user_spec.rb",
      "test/rails_test/spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/tatemae/muck_friends}
+  s.homepage = %q{http://github.com/tatemae/muck-friends}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{muck-friends}
@@ -793,7 +793,7 @@ Gem::Specification.new do |s|
      "test/rails_test/public/dispatch.rb",
      "test/rails_test/spec/controllers/default_controller_spec.rb",
      "test/rails_test/spec/controllers/friends_controller_spec.rb",
-     "test/rails_test/spec/helpers/muck_friends_helper_spec.rb",
+     "test/rails_test/spec/helpers/muck-friends_helper_spec.rb",
      "test/rails_test/spec/mailers/friend_mailer_spec.rb",
      "test/rails_test/spec/models/friend_spec.rb",
      "test/rails_test/spec/models/user_spec.rb",

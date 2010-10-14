@@ -1,4 +1,4 @@
-require 'muck_friends'
+require 'muck-friends'
 require 'rails'
 
 module MuckFriends
@@ -8,7 +8,7 @@ module MuckFriends
       'muck-friends'
     end
     
-    initializer 'muck_friends.helpers' do
+    initializer 'muck-friends.helpers' do
       ActiveSupport.on_load(:action_view) do
         include MuckFriendsHelper
       end

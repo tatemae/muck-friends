@@ -7,12 +7,12 @@ task :default => :test
 
 desc 'Translate this gem'
 task :translate do
-  file = File.join(File.dirname(__FILE__), 'locales', 'en.yml')
+  file = File.join(File.dirname(__FILE__), 'config', 'locales', 'en.yml')
   #system("babelphish -o -y #{file} -s es,fr,ja,de") # Can specify specific languages to translate to.
   system("babelphish -o -y #{file}")
 end
 
-desc 'Test the muck_friends plugin.'
+desc 'Test the muck-friends plugin.'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
   t.libs << 'test/rails_test/test'
@@ -36,7 +36,7 @@ rescue LoadError
   end
 end
 
-desc 'Generate documentation for the muck_friends plugin.'
+desc 'Generate documentation for the muck-friends plugin.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'MuckFriends'
@@ -51,7 +51,7 @@ begin
     gemspec.name = "muck-friends"
     gemspec.summary = "Friends engine for the muck system"
     gemspec.email = "justin@tatemae.com"
-    gemspec.homepage = "http://github.com/tatemae/muck_friends"
+    gemspec.homepage = "http://github.com/tatemae/muck-friends"
     gemspec.description = "Friend engine for the muck system."
     gemspec.authors = ["Justin Ball", "Joel Duffin"]
     gemspec.rubyforge_project = 'muck-friends'
