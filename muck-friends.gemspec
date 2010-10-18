@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{muck-friends}
-  s.version = "3.0.1"
+  s.version = "3.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Ball", "Joel Duffin"]
@@ -27,8 +27,8 @@ Gem::Specification.new do |s|
      "app/views/activity_templates/_friends_with.erb",
      "app/views/friend_mailer/follow.text.html.erb",
      "app/views/friend_mailer/follow.text.plain.erb",
-     "app/views/friend_mailer/friend_request.text.html.erb",
-     "app/views/friend_mailer/friend_request.text.plain.erb",
+     "app/views/friend_mailer/friend_request.html.erb",
+     "app/views/friend_mailer/friend_request.plain.erb",
      "app/views/friends/_all_friends.html.erb",
      "app/views/friends/_friend_icon.html.erb",
      "app/views/friends/_friend_requests.html.erb",
@@ -88,6 +88,7 @@ Gem::Specification.new do |s|
      "lib/muck-friends/mailers/friend_mailer.rb",
      "lib/muck-friends/models/friend.rb",
      "lib/muck-friends/models/user.rb",
+     "lib/tasks/muck_friends.rake",
      "muck-friends.gemspec",
      "test/rails_test/.gitignore",
      "test/rails_test/Gemfile",
