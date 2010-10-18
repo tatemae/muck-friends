@@ -1,6 +1,5 @@
 class Muck::FriendsController < ApplicationController
-  unloadable
-
+  
   before_filter :login_required, :except => [:index]
   before_filter :get_user_and_target, :except => [:index]
   

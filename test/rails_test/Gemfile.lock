@@ -9,7 +9,7 @@ GIT
 PATH
   remote: /Users/jbasdf/projects/muck-activities
   specs:
-    muck-activities (3.0.0)
+    muck-activities (3.0.1)
       muck-comments
       muck-engine
       muck-users
@@ -17,7 +17,7 @@ PATH
 PATH
   remote: /Users/jbasdf/projects/muck-comments
   specs:
-    muck-comments (3.0.1)
+    muck-comments (3.0.2)
       muck-engine
       muck-users
       nested_set
@@ -26,7 +26,7 @@ PATH
 PATH
   remote: /Users/jbasdf/projects/muck-contents
   specs:
-    muck-contents (3.0.0)
+    muck-contents (3.0.1)
       acts-as-taggable-on
       awesome_nested_set
       babelphish
@@ -41,7 +41,7 @@ PATH
 PATH
   remote: /Users/jbasdf/projects/muck-engine
   specs:
-    muck-engine (3.0.2)
+    muck-engine (3.0.3)
       overlord
       validation_reflection
       will_paginate (~> 3.0.beta)
@@ -57,7 +57,7 @@ PATH
 PATH
   remote: /Users/jbasdf/projects/muck-profiles
   specs:
-    muck-profiles (3.0.0)
+    muck-profiles (3.0.1)
       geokit
       muck-comments
       muck-contents
@@ -73,7 +73,7 @@ PATH
 PATH
   remote: /Users/jbasdf/projects/muck-users
   specs:
-    muck-users (3.0.2)
+    muck-users (3.0.3)
       authlogic
       bcrypt-ruby
       friendly_id
@@ -178,8 +178,8 @@ GEM
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
-    muck-raker (0.3.18)
-    muck-shares (3.0.0)
+    muck-raker (3.0.0)
+    muck-shares (3.0.1)
       muck-activities
       muck-comments
       muck-engine

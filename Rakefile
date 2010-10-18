@@ -1,23 +1,20 @@
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
+require 'rspec/core/rake_task'
 
-desc 'Default: run unit tests.'
-task :default => :test
+desc 'Default: run specs.'
+task :default => :spec
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.rspec_opts = ["--color", "-c", "-f progress", "-r test/rails_test/spec/spec_helper.rb"]
+  t.pattern = 'test/rails_test/spec/**/*_spec.rb'  
+end
 
 desc 'Translate this gem'
 task :translate do
   file = File.join(File.dirname(__FILE__), 'config', 'locales', 'en.yml')
   #system("babelphish -o -y #{file} -s es,fr,ja,de") # Can specify specific languages to translate to.
   system("babelphish -o -y #{file}")
-end
-
-desc 'Test the muck-friends plugin.'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test/rails_test/test'
-  t.pattern = 'test/rails_test/test/**/*_test.rb'
-  t.verbose = true
 end
 
 begin
