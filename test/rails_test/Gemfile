@@ -12,17 +12,19 @@ gem "bcrypt-ruby", :require => "bcrypt"
 gem "overlord"
 
 gem "muck-engine", :path => "~/projects/muck-engine"
-gem "muck-users", :require => "muck_users", :path => "~/projects/muck-users"
-gem "muck-profiles", :require => "muck_profiles", :path => "~/projects/muck-profiles"
+gem "muck-users", :path => "~/projects/muck-users"
+gem "muck-profiles", :path => "~/projects/muck-profiles"
 gem "muck-activities", :path => "~/projects/muck-activities"
-gem "muck-friends", :require => "muck-friends", :path => "../../"
+gem "muck-friends", :path => "../../"
+gem "muck-contents", :path => "~/projects/muck-contents"
+gem "muck-comments", :path => "~/projects/muck-comments"
 
 if RUBY_VERSION < "1.9"
   gem "ruby-debug"
 end
 
 group :test, :development do
-  gem "rspec-rails", ">=2.0.0.beta.22"
+  gem "rspec-rails", ">=2.0.0"
   gem "cucumber-rails"
 end
 
@@ -34,7 +36,7 @@ group :test do
   gem "factory_girl"
   gem "cucumber"
   gem "rcov"
-  gem "rspec", ">=2.0.0.beta.22"
+  gem "rspec", ">=2.0.0"
   gem "database_cleaner"
   gem "spork"
   gem "launchy"

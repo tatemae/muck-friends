@@ -16729,3 +16729,105 @@ Migrating to CreateAccessCodeRequests (20100123233654)
   [1m[35mSQL (0.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20091124203137')
   [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20091124205819')[0m
   [1m[35mSQL (0.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20100123035450')
+  [1m[36mSQL (160.0ms)[0m  [1mSHOW TABLES[0m
+  [1m[35mSQL (0.6ms)[0m  SHOW TABLES
+  [1m[36mSQL (1.3ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations`[0m
+  [1m[35mSQL (269.9ms)[0m  DROP DATABASE IF EXISTS `muck_friends_test`
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE DATABASE `muck_friends_test` DEFAULT CHARACTER SET `utf8`[0m
+  [1m[35mSQL (0.2ms)[0m  SHOW TABLES
+  [1m[36mSQL (278.9ms)[0m  [1mCREATE TABLE `access_code_requests` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `email` varchar(255), `code_sent_at` datetime, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `access_code_requests`
+  [1m[36mSQL (154.1ms)[0m  [1mCREATE INDEX `index_access_code_requests_on_email` ON `access_code_requests` (`email`)[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW TABLES
+  [1m[36mSQL (140.6ms)[0m  [1mCREATE TABLE `access_codes` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `code` varchar(255), `uses` int(11) DEFAULT 0 NOT NULL, `unlimited` tinyint(1) DEFAULT 0 NOT NULL, `expires_at` datetime, `use_limit` int(11) DEFAULT 1 NOT NULL, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `access_codes`
+  [1m[36mSQL (187.3ms)[0m  [1mCREATE INDEX `index_access_codes_on_code` ON `access_codes` (`code`)[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW TABLES
+  [1m[36mSQL (160.7ms)[0m  [1mCREATE TABLE `activities` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `item_id` int(11), `item_type` varchar(255), `template` varchar(255), `source_id` int(11), `source_type` varchar(255), `content` text, `title` varchar(255), `is_status_update` tinyint(1) DEFAULT 0, `is_public` tinyint(1) DEFAULT 1, `created_at` datetime, `updated_at` datetime, `comment_count` int(11) DEFAULT 0, `attachable_id` int(11), `attachable_type` varchar(255)) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `activities`
+  [1m[36mSQL (154.9ms)[0m  [1mCREATE INDEX `index_activities_on_attachable_id_and_attachable_type` ON `activities` (`attachable_id`, `attachable_type`)[0m
+  [1m[35mSQL (0.6ms)[0m  SHOW KEYS FROM `activities`
+  [1m[36mSQL (355.4ms)[0m  [1mCREATE INDEX `index_activities_on_item_id_and_item_type` ON `activities` (`item_id`, `item_type`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW KEYS FROM `activities`
+  [1m[36mSQL (154.1ms)[0m  [1mCREATE INDEX `index_activities_on_source_id_and_source_type` ON `activities` (`source_id`, `source_type`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW TABLES
+  [1m[36mSQL (97.0ms)[0m  [1mCREATE TABLE `activity_feeds` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `activity_id` int(11), `ownable_id` int(11), `ownable_type` varchar(255)) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `activity_feeds`
+  [1m[36mSQL (106.5ms)[0m  [1mCREATE INDEX `index_activity_feeds_on_activity_id` ON `activity_feeds` (`activity_id`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW KEYS FROM `activity_feeds`
+  [1m[36mSQL (108.3ms)[0m  [1mCREATE INDEX `index_activity_feeds_on_ownable_id_and_ownable_type` ON `activity_feeds` (`ownable_id`, `ownable_type`)[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW TABLES
+  [1m[36mSQL (98.1ms)[0m  [1mCREATE TABLE `countries` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128) DEFAULT '' NOT NULL, `abbreviation` varchar(3) DEFAULT '' NOT NULL, `sort` int(11) DEFAULT 1000 NOT NULL) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `countries`
+  [1m[36mSQL (113.3ms)[0m  [1mCREATE INDEX `index_countries_on_abbreviation` ON `countries` (`abbreviation`)[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `countries`
+  [1m[36mSQL (109.2ms)[0m  [1mCREATE INDEX `index_countries_on_name` ON `countries` (`name`)[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW TABLES
+  [1m[36mSQL (105.3ms)[0m  [1mCREATE TABLE `domain_themes` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `uri` varchar(255), `name` varchar(255)) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `domain_themes`
+  [1m[36mSQL (121.8ms)[0m  [1mCREATE INDEX `index_domain_themes_on_uri` ON `domain_themes` (`uri`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW TABLES
+  [1m[36mSQL (100.7ms)[0m  [1mCREATE TABLE `friends` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `inviter_id` int(11), `invited_id` int(11), `status` int(11) DEFAULT 0, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `friends`
+  [1m[36mSQL (129.8ms)[0m  [1mCREATE INDEX `index_friends_on_invited_id_and_inviter_id` ON `friends` (`invited_id`, `inviter_id`)[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `friends`
+  [1m[36mSQL (118.7ms)[0m  [1mCREATE INDEX `index_friends_on_inviter_id_and_invited_id` ON `friends` (`inviter_id`, `invited_id`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW TABLES
+  [1m[36mSQL (102.8ms)[0m  [1mCREATE TABLE `languages` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `english_name` varchar(255), `locale` varchar(255), `supported` tinyint(1) DEFAULT 1, `is_default` tinyint(1) DEFAULT 0) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW KEYS FROM `languages`
+  [1m[36mSQL (104.1ms)[0m  [1mCREATE INDEX `index_languages_on_locale` ON `languages` (`locale`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW KEYS FROM `languages`
+  [1m[36mSQL (104.8ms)[0m  [1mCREATE INDEX `index_languages_on_name` ON `languages` (`name`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW TABLES
+  [1m[36mSQL (105.1ms)[0m  [1mCREATE TABLE `permissions` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `role_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW TABLES
+  [1m[36mSQL (121.0ms)[0m  [1mCREATE TABLE `profiles` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `user_id` int(11), `photo_file_name` varchar(255), `photo_content_type` varchar(255), `photo_file_size` int(11), `created_at` datetime, `updated_at` datetime, `location` varchar(255), `lat` decimal(15,10), `lng` decimal(15,10), `about` text, `first_name` varchar(255), `last_name` varchar(255), `city` varchar(255), `state_id` int(11), `country_id` int(11), `language_id` int(11)) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `profiles`
+  [1m[36mSQL (114.3ms)[0m  [1mCREATE INDEX `index_profiles_on_lat_and_lng` ON `profiles` (`lat`, `lng`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW KEYS FROM `profiles`
+  [1m[36mSQL (117.7ms)[0m  [1mCREATE INDEX `index_profiles_on_user_id` ON `profiles` (`user_id`)[0m
+  [1m[35mSQL (0.7ms)[0m  SHOW TABLES
+  [1m[36mSQL (104.4ms)[0m  [1mCREATE TABLE `roles` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `rolename` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW TABLES
+  [1m[36mSQL (113.3ms)[0m  [1mCREATE TABLE `states` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(128) DEFAULT '' NOT NULL, `abbreviation` varchar(3) DEFAULT '' NOT NULL, `country_id` bigint NOT NULL) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `states`
+  [1m[36mSQL (114.2ms)[0m  [1mCREATE INDEX `index_states_on_abbreviation` ON `states` (`abbreviation`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW KEYS FROM `states`
+  [1m[36mSQL (126.9ms)[0m  [1mCREATE INDEX `index_states_on_country_id` ON `states` (`country_id`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW KEYS FROM `states`
+  [1m[36mSQL (149.6ms)[0m  [1mCREATE INDEX `index_states_on_name` ON `states` (`name`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW TABLES
+  [1m[36mSQL (119.7ms)[0m  [1mCREATE TABLE `themes` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255)) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.6ms)[0m  SHOW TABLES
+  [1m[36mSQL (110.7ms)[0m  [1mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `login` varchar(255), `email` varchar(255), `first_name` varchar(255), `last_name` varchar(255), `crypted_password` varchar(255), `password_salt` varchar(255), `persistence_token` varchar(255) NOT NULL, `single_access_token` varchar(255) NOT NULL, `perishable_token` varchar(255) NOT NULL, `login_count` int(11) DEFAULT 0 NOT NULL, `failed_login_count` int(11) DEFAULT 0 NOT NULL, `last_request_at` datetime, `current_login_at` datetime, `last_login_at` datetime, `current_login_ip` varchar(255), `last_login_ip` varchar(255), `terms_of_service` tinyint(1) DEFAULT 0 NOT NULL, `time_zone` varchar(255) DEFAULT 'UTC', `disabled_at` datetime, `created_at` datetime, `activated_at` datetime, `updated_at` datetime, `identity_url` varchar(255), `url_key` varchar(255), `access_code_id` int(11)) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `users`
+  [1m[36mSQL (124.2ms)[0m  [1mCREATE INDEX `index_users_on_email` ON `users` (`email`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW KEYS FROM `users`
+  [1m[36mSQL (132.4ms)[0m  [1mCREATE INDEX `index_users_on_last_request_at` ON `users` (`last_request_at`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW KEYS FROM `users`
+  [1m[36mSQL (134.3ms)[0m  [1mCREATE INDEX `index_users_on_login` ON `users` (`login`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW KEYS FROM `users`
+  [1m[36mSQL (114.9ms)[0m  [1mCREATE INDEX `index_users_on_persistence_token` ON `users` (`persistence_token`)[0m
+  [1m[35mSQL (0.5ms)[0m  SHOW TABLES
+  [1m[36mSQL (103.8ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35mSQL (0.4ms)[0m  SHOW KEYS FROM `schema_migrations`
+  [1m[36mSQL (129.5ms)[0m  [1mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [1m[35mSQL (0.6ms)[0m  SHOW TABLES
+  [1m[36mSQL (0.3ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35mSQL (1.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20100123233654')
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20090320174818')[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20090327231918')
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20090402033319')[0m
+  [1m[35mSQL (2.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20090402234137')
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20090426041056')[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20090426041103')
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20090512013727')[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20090530170040')
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20090606153236')[0m
+  [1m[35mSQL (2.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20090608073052')
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20090730044139')[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20090818204527')
+  [1m[36mSQL (2.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20090819030523')[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20091124203137')
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20091124205819')[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20100123035450')
