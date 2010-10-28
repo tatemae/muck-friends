@@ -20,9 +20,8 @@ describe FriendMailer do
   it "should send friend_request email" do
     inviter = Factory(:user)
     invited = Factory(:user)
-    response = FriendMailer.deliver_friend_request(inviter, invited)
+    email = FriendMailer.friend_request(inviter, invited).deliver
     ActionMailer::Base.deliveries.should_not be_empty
-    email = ActionMailer::Base.deliveries.last
     email.to.should == [invited.email]
     email.from.should == [MuckEngine.configuration.from_email]
   end

@@ -55,6 +55,7 @@ end
 
 MuckProfiles.configure do |config|
   config.enable_solr = false           # This enables or disables acts as solr for profiles.
+  config.enable_sunspot = false        # This enables or disables sunspot for profiles. Only use acts_as_solr or sunspot not both. Sunspot does not include multicore support.
   config.enable_geokit = false         # Turn geokit functionality on/off.
   config.enable_guess_location = false # If true the profile system will attempt to determine the user's location via IP and populated with the location, lat and lon fields.
   config.policy = { :public => [:login, :first_name, :last_name, :about],

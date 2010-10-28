@@ -28,3 +28,4 @@ pkg
 pkg/*
 log/*
 secrets.yml
+log/*
