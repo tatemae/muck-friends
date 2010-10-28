@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{muck-friends}
-  s.version = "3.0.2"
+  s.version = "3.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Ball", "Joel Duffin"]
-  s.date = %q{2010-10-18}
+  s.date = %q{2010-10-27}
   s.description = %q{Friend engine for the muck system.}
   s.email = %q{justin@tatemae.com}
   s.extra_rdoc_files = [
@@ -25,10 +25,10 @@ Gem::Specification.new do |s|
      "app/helpers/muck_friends_helper.rb",
      "app/views/activity_templates/_follow.erb",
      "app/views/activity_templates/_friends_with.erb",
-     "app/views/friend_mailer/follow.text.html.erb",
-     "app/views/friend_mailer/follow.text.plain.erb",
+     "app/views/friend_mailer/follow.html.erb",
+     "app/views/friend_mailer/follow.text.erb",
      "app/views/friend_mailer/friend_request.html.erb",
-     "app/views/friend_mailer/friend_request.plain.erb",
+     "app/views/friend_mailer/friend_request.text.erb",
      "app/views/friends/_all_friends.html.erb",
      "app/views/friends/_friend_icon.html.erb",
      "app/views/friends/_friend_requests.html.erb",
@@ -90,6 +90,9 @@ Gem::Specification.new do |s|
      "lib/muck-friends/models/user.rb",
      "lib/tasks/muck_friends.rake",
      "muck-friends.gemspec",
+     "page,
+    ",
+     "per_page",
      "test/rails_test/.gitignore",
      "test/rails_test/Gemfile",
      "test/rails_test/Gemfile.lock",
@@ -165,8 +168,6 @@ Gem::Specification.new do |s|
      "test/rails_test/lib/tasks/.gitkeep",
      "test/rails_test/lib/tasks/cucumber.rake",
      "test/rails_test/log/cucumber.log",
-     "test/rails_test/log/development.log",
-     "test/rails_test/log/test.log",
      "test/rails_test/public/.htaccess",
      "test/rails_test/public/404.html",
      "test/rails_test/public/422.html",
