@@ -29,7 +29,7 @@ Add an initializer with the following:
     config.enable_friend_activity = true   # If true then friend related activity will show up in the activity feed.  Requires muck-activities gem
   end
 
-Also be sure to configure the other muck gems that muck friends depends on. Look at test/rails_test/config/initializers/muck.rb for an example.    
+Also be sure to configure the other muck gems that muck friends depends on. Look at test/config/initializers/muck.rb for an example.    
 == Usage
 
 You will need a friend model that has 'include MuckFriends::Models::MuckFriend' and a user model that has 'include MuckFriends::Models::MuckUser'

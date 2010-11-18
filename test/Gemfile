@@ -15,7 +15,7 @@ gem "muck-engine", :path => "~/projects/muck-engine"
 gem "muck-users", :path => "~/projects/muck-users"
 gem "muck-profiles", :path => "~/projects/muck-profiles"
 gem "muck-activities", :path => "~/projects/muck-activities"
-gem "muck-friends", :path => "../../"
+gem "muck-friends", :path => "../"
 gem "muck-contents", :path => "~/projects/muck-contents"
 gem "muck-comments", :path => "~/projects/muck-comments"
 
@@ -24,7 +24,7 @@ if RUBY_VERSION < "1.9"
 end
 
 group :test, :development do
-  gem "rspec-rails", ">=2.0.0"
+  gem "rspec-rails", ">=2.1.0"
   gem "cucumber-rails"
 end
 
@@ -32,11 +32,11 @@ group :test do
   gem "autotest"
   gem "capybara", ">= 0.3.9"
   # this is also temporary until shoulda works with Rails 3. Local version includes this fix: http://github.com/dchelimsky/shoulda/commit/586b2d90e277c11f951180a203cc92292ff01026
-  gem "shoulda", :path => "~/projects/other_apps/shoulda"
+  gem "shoulda"
   gem "factory_girl"
   gem "cucumber"
   gem "rcov"
-  gem "rspec", ">=2.0.0"
+  gem "rspec", ">=2.1.0"
   gem "database_cleaner"
   gem "spork"
   gem "launchy"

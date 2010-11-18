@@ -6,8 +6,8 @@ require 'rspec/core/rake_task'
 desc 'Default: run specs.'
 task :default => :spec
 RSpec::Core::RakeTask.new(:spec) do |t|
-  t.rspec_opts = ["--color", "-c", "-f progress", "-r test/rails_test/spec/spec_helper.rb"]
-  t.pattern = 'test/rails_test/spec/**/*_spec.rb'  
+  t.rspec_opts = ["--color", "-c", "-f progress", "-r test/spec/spec_helper.rb"]
+  t.pattern = 'test/spec/**/*_spec.rb'  
 end
 
 desc 'Translate this gem'
@@ -21,8 +21,8 @@ begin
   require 'rcov/rcovtask'
   Rcov::RcovTask.new do |t|
     #t.libs << 'lib'
-    t.libs << 'test/rails_test/lib'
-    t.pattern = 'test/rails_test/test/**/*_test.rb'
+    t.libs << 'test/lib'
+    t.pattern = 'test/test/**/*_spec.rb'
     t.verbose = true
     t.output_dir = 'coverage'
     t.rcov_opts << '--exclude "gems/*"'
@@ -44,17 +44,19 @@ end
 
 begin
   require 'jeweler'
-  Jeweler::Tasks.new do |gemspec|
-    gemspec.name = "muck-friends"
-    gemspec.summary = "Friends engine for the muck system"
-    gemspec.email = "justin@tatemae.com"
-    gemspec.homepage = "http://github.com/tatemae/muck-friends"
-    gemspec.description = "Friend engine for the muck system."
-    gemspec.authors = ["Justin Ball", "Joel Duffin"]
-    gemspec.rubyforge_project = 'muck-friends'
-    gemspec.add_dependency "muck-engine"
-    gemspec.add_dependency "muck-users"
-    gemspec.add_dependency "muck-profiles"
+  Jeweler::Tasks.new do |gem|
+    gem.name = "muck-friends"
+    gem.summary = "Friends engine for the muck system"
+    gem.email = "justin@tatemae.com"
+    gem.homepage = "http://github.com/tatemae/muck-friends"
+    gem.description = "Friend engine for the muck system."
+    gem.authors = ["Justin Ball", "Joel Duffin"]
+    
+    gem.add_dependency "muck-engine"
+    gem.add_dependency "muck-users"
+    gem.add_dependency "muck-profiles"
+    gem.files.exclude 'test/**'
+    gem.test_files.exclude 'test/**'
   end
   Jeweler::RubyforgeTasks.new do |rubyforge|
     rubyforge.doc_task = "rdoc"
