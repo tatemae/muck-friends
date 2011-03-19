@@ -5,11 +5,12 @@ gem "mysql"
 
 # gem "authlogic"
 # TODO this is temporary until the official authlogic gem is updated for rails 3
-gem "authlogic", :git => "git://github.com/odorcicd/authlogic.git", :branch => "rails3"
+gem 'authlogic', :git => 'git://github.com/binarylogic/authlogic.git'
 
 gem "disguise"
 gem "bcrypt-ruby", :require => "bcrypt"
 gem "overlord"
+gem "jammit"
 
 gem "muck-engine", :path => "~/projects/muck-engine"
 gem "muck-users", :path => "~/projects/muck-users"
